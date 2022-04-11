@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double input = sc.nextDouble();
+        double masuk = sc.nextDouble();
+        double jumlah = jumlahSaldo(input, masuk);
+        double hasilKurang = penguranganSaldo(jumlah);
+        double saldoakhir = bonusSaldo(hasilKurang);
+        System.out.println(saldoakhir);
+    }
+    public static double jumlahSaldo(double input, double masuk){
+        double jumlah = input + masuk;
+        return jumlah;
+    }
+    public static double penguranganSaldo(double jumlah){
+        double hasilKurang = jumlah-7000;
+        return hasilKurang;
+    }
+    public static double bonusSaldo (double hasilKurang){
+        double hasilbonus = hasilKurang + (5*hasilKurang/10000);
+        return hasilbonus;
+    }
+}

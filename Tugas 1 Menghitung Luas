@@ -1,58 +1,49 @@
 import java.io.*;
 import java.util.*;
 
-class bentuk {
-    int s, a, t;
-    double r;
-
-    public bentuk(int sisi) {
-        this.s = sisi;
-        int luasBangun = sisi * sisi;
-        System.out.println(luasBangun);
-    }
-
-    public bentuk(int alas, int tinggi) {
-        this.a = alas;
-        this.t = tinggi;
-        int luasBangun = alas * tinggi / 2;
-        System.out.println(luasBangun);
-    }
-
-    public bentuk(double jari) {
-        this.r = jari;
-        if (jari % 7 == 0) {
-            double luasBangun = 22 / 7 * jari * jari;
-            System.out.println(luasBangun);
-        } else {
-            double phi = 3.14;
-            double luasBangun = (phi * jari * jari);
-            System.out.println((double) (int) luasBangun);
-        }
-    }
-}
-
 public class Solution {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int pilihan = sc.nextInt();
-
-    switch(pilihan){
-        case 1 :
-            int s = sc.nextInt();
-            bentuk persegi = new bentuk(s);
-            break;
-        case 2 :
-            int a = sc.nextInt();
-            int t = sc.nextInt();
-            bentuk segi3 = new bentuk(a,t);
-            break;
-        case 3 :
-            double r = sc.nextInt();
-            bentuk lingkaran = new bentuk(r);
-            break;
-        default :
-            System.out.println("Input yang anda masukan tidak sesuai");
+        byte pilihan = sc.nextByte();
+        switch(pilihan){
+            case 1 :
+                byte sisi = sc.nextByte();
+                System.out.println(luasPersegi(sisi));
+                //method
+                break;
+            case 2 :
+                byte alas = sc.nextByte();
+                byte tinggi = sc.nextByte();
+                System.out.println(luasSegitiga(alas, tinggi));
+                //method
+                break;
+            case 3 :
+                byte jari = sc.nextByte();
+                luasLingkaran(jari);
+                //method
+                break;
+            default :
+                System.out.println("Input yang anda masukan tidak sesuai");
+        }
     }
+    
+    public static int luasPersegi(byte sisi){
+        int persegi = (int)(sisi*sisi);
+        return persegi;
+    }
+    public static int luasSegitiga(byte alas, byte tinggi){
+        double segitiga = alas*tinggi/2;
+        return (int)segitiga;
+    }
+    public static void luasLingkaran(byte jari){
+        if(jari%7 == 0){
+            int luas = (int)((22/7*jari*jari));
+            System.out.println((double)(int)luas);
+            }else {
+                double phi = 3.14;
+                double luas = (phi*jari*jari);
+                System.out.println((double)(int)luas);
+            }
     }
 }

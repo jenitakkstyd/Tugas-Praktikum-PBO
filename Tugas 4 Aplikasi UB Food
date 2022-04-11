@@ -1,0 +1,91 @@
+package UBFood;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        DataMerchant.merc = DataMerchant.tambahMerchant(new Merchant("Bakso Pak Sahid", "Bakso", 8000));
+        DataMerchant.merc = DataMerchant.tambahMerchant(new Merchant("Nasgor Mblebes", "Nasi Goreng Jawa", 10000));
+        DataMerchant.merc = DataMerchant.tambahMerchant(new Merchant("Ayam Geprek Kak Ros", "Ayam Kota Ekstra Nasi", 10000));
+
+        DataMerchant.merc = DataMerchant.tambahMerchant(new Merchant(DataMerchant.in.nextLine(), DataMerchant.in.nextLine(), DataMerchant.in.nextDouble()));
+        DataMerchant.tampilData();
+    }
+}
+
+class DataMerchant {
+    static Scanner in = new Scanner(System.in);
+    static Merchant[] merc = new Merchant[0];
+
+    public static Merchant[] tambahMerchant(Merchant merchant){
+        Merchant yap[] = new Merchant[DataMerchant.merc.length+1];
+        for (int i = 0; i < DataMerchant.merc.length; i++){
+            yap[i] = DataMerchant.merc[i];
+        }
+        yap[DataMerchant.merc.length] = merchant;
+        return yap;
+    }
+    public static void tampilData() {
+        for (Merchant mch1 : merc) {
+            System.out.println("====Tampilan Data Merchant UBFood====");
+            System.out.println("Nama Merchant   : " + mch1.getNamaMerchant());
+            System.out.println("Nama Produk     : " + mch1.getNamaProduk());
+            System.out.println("Harga           : " + (int)mch1.getHargaMakanan());
+        }
+    }
+
+    public static Merchant cariMerchant(String nama) {
+        for (int i = 0; i < DataMerchant.merc.length; i++){
+            if (nama.equalsIgnoreCase(DataMerchant.merc[i].getNamaMerchant())){
+                return DataMerchant.merc[i];
+            }
+        }
+        return null;
+    }
+
+    public static void tampilMerchant(Merchant merchant){
+        System.out.println("====Tampilan Data Merchant UBFood====");
+        System.out.println("Nama Merchant   : " + merchant.getNamaMerchant());
+        System.out.println("Nama Produk     : " + merchant.getNamaProduk());
+        System.out.println("Harga           : " + (int)merchant.getHargaMakanan());
+    }
+
+    public static void updateMerchant(Merchant merchant, int a){
+        merc[a] = merchant;
+    }
+}
+class Merchant {
+    private String namaMerchant;
+    private String namaProduk;
+    private double hargaMakanan;
+
+    public Merchant(String namaMerchant, String namaProduk, double hargaMakanan){
+        this.namaMerchant = namaMerchant;
+        this.namaProduk = namaProduk;
+        this.hargaMakanan = hargaMakanan;
+    }
+
+    public String getNamaMerchant(){
+        return namaMerchant;
+    }
+
+    public void setNamaMerchant(String namaMerchant){
+        this.namaMerchant = namaMerchant;
+    }
+
+    public String getNamaProduk(){
+        return namaProduk;
+    }
+
+    public void setNamaProduk(String namaProduk){
+        this.namaProduk = namaProduk;
+    }
+    public double getHargaMakanan(){
+        return hargaMakanan;
+    }
+
+    public void setHargaMakanan(double hargaMakanan){
+        this.hargaMakanan = hargaMakanan;
+    }
+}

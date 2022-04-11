@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        int geser = sc.nextInt();
+        charAt(input, geser);
+
+    }
+    public static void charAt(String input , int geser){
+        int pjg = input.length();
+        String hasil = "";
+        for (int i = 0; i < pjg; i++){
+            char a = input.charAt(i);
+            if (a >= 'a' && a <='z'){
+                a = (char)(a+geser);
+                if (a>'z'){
+                    a = (char)(a +'a'-'z'-1);
+                }
+            hasil = hasil+a;
+            } else if (a >= 'A' && a <='Z'){
+                a = (char)(a+geser);
+                if(a>'Z'){
+                    a = (char)(a + 'A'-'Z'-1);
+                }
+            hasil = hasil+a;
+            }
+            else{
+                hasil = hasil +a;
+            }
+        }
+        System.out.println(hasil);
+    }
+}

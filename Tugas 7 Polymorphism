@@ -1,0 +1,168 @@
+package Polymorphism;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Pegawai pgw0 = new PegawaiTetap("Bayu", "350728490327424892342", 2000000);
+        Pegawai pgw1 = new PegawaiTetap("Jenita Ekka Istyadi", "3318106801030000", 2000000);
+        Pegawai pgw2 = new PegawaiTetap("Jenita Ekka", "3318106801030001", 2000000);
+        Pegawai pgw3 = new PegawaiTetap("Jenita Istyadi", "3318106801030002", 2000000);
+        System.out.println("=======================================");
+        System.out.println(pgw0.toString());
+        System.out.println(pgw1.toString());
+        System.out.println(pgw2.toString());
+        System.out.println(pgw3.toString());
+        System.out.println("=======================================");
+
+        Pegawai hrn0 = new PegawaiHarian("Edo", "350728490327424892343", 8500, 40);
+        Pegawai hrn1 = new PegawaiHarian("Jenn", "3318106801030022", 8500, 35);
+        Pegawai hrn2 = new PegawaiHarian("Jenii", "3318106801030032", 8500, 50);
+        Pegawai hrn3 = new PegawaiHarian("Jeenii", "3318106801030042", 8500, 45);
+        System.out.println("=======================================");
+        System.out.println(hrn0.toString());
+        System.out.println(hrn1.toString());
+        System.out.println(hrn2.toString());
+        System.out.println(hrn3.toString());
+        System.out.println("=======================================");
+
+        Pegawai sls0 = new Sales("Tika", "350728490327424892344", 50, 5000);
+        Pegawai sls1 = new Sales("Janu", "3318106801030010", 30, 5000);
+        Pegawai sls2 = new Sales("Jono", "3318106801030011", 25, 5000);
+        Pegawai sls3 = new Sales("Jeno", "3318106801030012", 20, 5000);
+        System.out.println("=======================================");
+        System.out.println(sls0.toString());
+        System.out.println(sls1.toString());
+        System.out.println(sls2.toString());
+        System.out.println(sls3.toString());
+        System.out.println("=======================================");
+    }
+}
+class PegawaiTetap extends Pegawai{
+    private double Upah;
+
+    public PegawaiTetap (String nama, String noKTP, double Upah){
+        super(nama, noKTP);
+        this.Upah = Upah;
+    }
+    public void setUpah(double Upah){
+        this.Upah = Upah;
+    }
+    public double getUpah(){
+        return Upah;
+    }
+    @Override
+    public double gaji(){
+        return this.Upah;
+    }
+    @Override
+    public String toString(){
+        return "\nPegawai Tetap\t: "+getNama()+
+                "\nNo KTP\t\t\t: "+getNoKTP()+
+                "\nUpah\t\t\t: "+getUpah()+
+                "\nPendapatan\t\t: Rp "+(int)gaji();
+    }
+}
+class Pegawai {
+    private String nama;
+    private String noKTP;
+
+    public Pegawai(String nama, String noKTP){
+        this.nama = nama;
+        this.noKTP = noKTP;
+    }
+    public String getNama() {
+        return nama;
+    }
+    public String getNoKTP() {
+        return noKTP;
+    }
+    public String toString(){
+        return null;
+    }
+    public double gaji(){
+        return 0;
+
+    }
+}
+class PegawaiHarian extends Pegawai{
+    private double upahPerJam;
+    private int totalJam;
+
+    public PegawaiHarian(String nama, String noKTP, double upahPerJam, int totalJam){
+        super(nama, noKTP);
+        this.upahPerJam = upahPerJam;
+        this.totalJam = totalJam;
+    }
+
+    public double getUpahPerJam() {
+        return 8500;
+    }
+
+    public int getTotalJam() {
+        return totalJam;
+    }
+
+    public void setUpahPerJam(double upahPerJam) {
+        this.upahPerJam = upahPerJam;
+    }
+
+    public void setTotalJam(int totalJam) {
+        this.totalJam = totalJam;
+    }
+    @Override
+    public double gaji(){
+        double gaji = 0;
+        if(totalJam <= 40){
+            gaji = this.upahPerJam * this.totalJam;
+        }
+        else if(totalJam > 40){
+            gaji = this.upahPerJam * this.totalJam;
+            gaji = (this.upahPerJam * 40) + (this.totalJam -40) * (this.upahPerJam * 1.5);
+        }
+        return gaji;
+    }
+
+    @Override
+    public String toString(){
+        return "\nPegawai Harian  : "+getNama()+
+                "\nNo KTP\t\t\t: "+getNoKTP()+
+                "\nUpah/jam\t\t: Rp "+getUpahPerJam()+
+                "\nTotal jam kerja : "+getTotalJam()+".0"+
+                "\nPendapatan\t\t: Rp "+(int)gaji();
+    }
+}
+class Sales extends Pegawai{
+    private int penjualan;
+    private double komisi;
+
+    public Sales(String nama, String noKTP, int penjualan, double komisi){
+        super(nama, noKTP);
+        this.penjualan = penjualan;
+        this.komisi = komisi;
+    }
+    public int getPenjualan() {
+        return penjualan;
+    }
+    public double getKomisi() {
+        return komisi;
+    }
+    public void setPenjualan(int penjualan) {
+        this.penjualan = penjualan;
+    }
+    public void setKomisi(double komisi) {
+        this.komisi = komisi;
+    }
+    @Override
+    public double gaji() {
+        double gaji = this.penjualan * this.komisi;
+        return gaji;
+    }
+    @Override
+    public String toString(){
+        return "\nSales\t\t\t: "+getNama()+
+                "\nNo KTP\t\t\t: "+getNoKTP()+
+                "\nTotal Penjualan : "+getPenjualan()+".0"+
+                "\nBesaran Komisi  : "+getKomisi()+
+                "\nPendapatan\t\t: Rp "+(int)gaji();
+    }
+}

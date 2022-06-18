@@ -1,0 +1,157 @@
+package PrakPBO;
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+        CarRider ming = new CarRider("Lin Ming", 19, "08000000000");
+        CarRider yohan = new CarRider("Bei Yohan", 20, "081111111111");
+        CarRider ling = new CarRider("Ling'er", 31, "082222222222");
+        CarRider young = new CarRider("Lee Young", 21, "083333333333");
+
+        CarData acc = new CarData();
+        acc.addCar("SUV", "N 1111 AB", "Honda");
+        acc.addCar("SPORT", "N 2222 AB", "SSC Tuatara");
+        acc.addCar("TRUCK", "N 3333 AB", "Suzuki");
+        acc.addCar("PICK UP", "N 4444 AB", "Mitsubishi");
+
+        acc.listOfCar();
+
+        RentArchive data = new RentArchive();
+        data.Rent(ming, acc.carList.get(1), 9);
+        data.Rent(yohan, acc.carList.get(0), 3);
+        data.Rent(ling, acc.carList.get(1), 1);
+        data.Rent(young, acc.carList.get(3), 5);
+
+        System.out.println();
+        Car.setStatus("true");
+        Car.setStatus("true");
+        Car.setStatus("false");
+        Car.setStatus("true");
+
+        System.out.println();
+        data.info();
+    }
+}
+class CarData {
+    public static ArrayList<Car> carList = new ArrayList<>();
+
+    public void addCar(String carType, String polNum, String merk){
+        carList.add(new Car(carType,polNum,merk));
+    }
+    public void listOfCar(){
+        System.out.println("|===========================|");
+        System.out.println("|        DAFTAR MOBIL       |");
+        System.out.println("|===========================|");
+        for(Car sc : CarData.carList){
+            System.out.println(" TIPE MOBIL  : "+ sc.getCarType());
+            System.out.println(" NO. POLISI  : "+ sc.getPolNum());
+            System.out.println(" MERK MOBIL  : "+ sc.getMerk());
+            System.out.println("|===========================|");
+        }
+    }
+}
+class RentArchive {
+    public static ArrayList<CarRent> rentData = new ArrayList<>();
+
+    public void Rent(CarRider rider, Car car, int rentDur){
+        rentData.add(new CarRent(rider, car, rentDur));
+    }
+
+    public void info(){
+        System.out.println("|===========================|");
+        System.out.println("|    INFORMASI PELANGGAN    |");
+        System.out.println("|===========================|");
+        for(CarRent sc : RentArchive.rentData){
+            System.out.println(" NAMA PEMINJAM : "+ sc.getRider().getName());
+            System.out.println(" TIPE MOBIL    : "+ sc.getCar().getCarType());
+            System.out.println(" NO. POLISI    : "+ sc.getCar().getPolNum());
+            System.out.println(" LAMA RENTAL   : "+ sc.getRentDur());
+            System.out.println("|===========================|");
+        }
+    }
+}
+class CarRider {
+    private String name;
+    private int age;
+    private String phone;
+
+    public CarRider(String name, int age, String phone){
+        this.name = name;
+        this.age = age;
+        this.phone = phone;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getAge(){
+        return age;
+    }
+
+    public String getPhone(){
+        return phone;
+    }
+}
+class CarRent {
+    private CarRider rider;
+    private Car car;
+    private int rentDur;
+
+    public CarRent(CarRider rider, Car car, int RentDur){
+        this.rider = rider;
+        this.rentDur = RentDur;
+        this.car = car;
+    }
+
+    public CarRider getRider(){
+        return rider;
+    }
+
+    public Car getCar(){
+        return car;
+    }
+
+    public int getRentDur(){
+        return rentDur;
+    }
+}
+class Car {
+    private String carType;
+    private String polNum;
+    private String merk;
+    private boolean status;
+
+    public Car(String carType, String polNum, String merk){
+        this.carType = carType;
+        this.polNum = polNum;
+        this.merk = merk;
+        this.status = true;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public String getPolNum() {
+        return polNum;
+    }
+
+    public String getMerk() {
+        return merk;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public static void setStatus(String status){
+        if(status == "true"){
+            System.out.println("MOBIL BERHASIL DISEWA");
+        }else{
+            System.out.println("MAAF, MOBIL SUDAH DISEWA");
+        }
+    }
+}

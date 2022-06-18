@@ -1,0 +1,410 @@
+package Inheritance;
+
+import java.util.ArrayList;
+import java.text.DecimalFormat;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Manusia mns1 = new Manusia("Jenita", "215150607111021", false, true);
+        Manusia mns2 = new Manusia("Ekka", "215150607111021", true, true);
+        Manusia mns3 = new Manusia("Istyadi", "215150607111021", true, false);
+        ArrayList<Manusia> output = new ArrayList<Manusia>();
+        output.add(mns1);
+        output.add(mns2);
+        output.add(mns3);
+
+        System.out.println("========== DAFTAR MANUSIA ==========");
+        for (int i = 0; i < output.size(); i++) {
+            System.out.println(output.get(i).toString());
+        }
+        System.out.println("====================================");
+
+        MahasiswaFilkom mhs1 = new MahasiswaFilkom("Jenita", "3318106801030004", false, false, "215150607111021", 3.5);
+        MahasiswaFilkom mhs2 = new MahasiswaFilkom("Ekka", "3318106801030004", true, true, "215150307111021", 4.0);
+        MahasiswaFilkom mhs3 = new MahasiswaFilkom("Istyadi", "3318106801030004", false, false, "205150407111021", 3.2);
+        ArrayList<MahasiswaFilkom> output1 = new ArrayList<MahasiswaFilkom>();
+        output1.add(mhs1);
+        output1.add(mhs2);
+        output1.add(mhs3);
+
+        System.out.println();
+        System.out.println("===== DAFTAR MAHASISWA FILKOM =====");
+        for (int i = 0; i < output.size(); i++) {
+            System.out.println(output1.get(i).toString());
+        }
+        System.out.println("===================================");
+
+        Pekerja kerja1 = new Pekerja("Jenita", "3318106801030004", false, true, 8, 30, "1010002");
+        Pekerja kerja2 = new Pekerja("Ekka", "3318106801030004", true, false, 9, 28, "2020004");
+        Pekerja kerja3 = new Pekerja("Istyadi", "3318106801030004", false, true, 10, 26, "3030008");
+        ArrayList<Pekerja> output2 = new ArrayList<Pekerja>();
+        output2.add(kerja1);
+        output2.add(kerja2);
+        output2.add(kerja3);
+
+        System.out.println();
+        System.out.println("========== DAFTAR PEKERJA ==========");
+        for (int i = 0; i < output.size(); i++) {
+            System.out.println(output2.get(i).toString());
+        }
+        System.out.println("====================================");
+
+        Manajer mnjr1 = new Manajer("Jenita", "3318106801030004", false, true, 9, "4040001", 25);
+        Manajer mnjr2 = new Manajer("Ekka", "3318106801030004", false, false, 8, "5050005", 28);
+        Manajer mnjr3 = new Manajer("Istyadi", "3318106801030004", true, true, 6, "6060009", 25);
+        ArrayList<Manajer> output3 = new ArrayList<Manajer>();
+        output3.add(mnjr1);
+        output3.add(mnjr2);
+        output3.add(mnjr3);
+
+        System.out.println();
+        System.out.println("========== DAFTAR MANAJER ==========");
+        for (int i = 0; i < output.size(); i++) {
+            System.out.println(output3.get(i).toString());
+        }
+        System.out.println("====================================");
+    }
+}
+class Manajer extends Pekerja {
+        public int lamaKerja;
+        static int jumlah3 = 0;
+
+        public Manajer(String nama, String NIK, boolean jenisKelamin, boolean menikah, int jamKerja, String NIP, int lamaKerja) {
+            super(nama, NIK, jenisKelamin, menikah, jamKerja, lamaKerja, NIP);
+            this.lamaKerja = lamaKerja;
+        }
+
+        public int getLamaKerja() {
+            return lamaKerja;
+        }
+
+        public void setLamaKerja(int jamKerja) {
+            this.lamaKerja = lamaKerja;
+        }
+
+        public double bonusManajer() {
+            return getBonuss() * 0.3;
+        }
+
+        public void totalManajer() {
+            System.out.println(jumlah3);
+        }
+
+        public String toString() {
+            jumlah3++;
+            String pattern = "##.##";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+            return
+                    "\nNama\t\t : " + getNama() +
+                            "\nNIK\t\t\t : " + getNIK() +
+                            "\nJenis Kelamin: " + (getJenisKelamin() ? "Laki-laki" : "Perempuan") +
+                            "\nPendapatan\t : " + (getPendapatan() + getBonuss() + bonusManajer() + getGajii() + 15) + "$" +
+                            "\nBonus\t\t : " + getBonuss() + bonusManajer() + "$" +
+                            "\nGaji\t\t : " + getGajii() + "$" +
+                            "\nStatus\t\t : " + getStatus() +
+                            "\n Lama Kerja\t : " + getLamaKerja() + " hari" + "\n";
+        }
+    }
+
+class MahasiswaFilkom extends Manusia {
+        private String NIM;
+        private double IPK;
+        static int jumlah1 = 0;
+
+        public MahasiswaFilkom(String nama, String NIK, boolean jenisKelamin, boolean menikah, String NIM, double IPK) {
+            super(nama, NIK, jenisKelamin, menikah);
+            this.NIM = NIM;
+            this.IPK = IPK;
+        }
+
+        public String getNIM() {
+            return NIM;
+        }
+
+        public void setNIM(String NIM) {
+            this.NIM = NIM;
+        }
+
+        public double getIPK() {
+            return IPK;
+        }
+
+        public void setIPK(double IPK) {
+            this.IPK = IPK;
+        }
+
+        public String getStatus() {
+            String angkatan = "", prodi = "";
+            angkatan = "20" + NIM.substring(0, 2);
+            switch (NIM.substring(6, 7)) {
+                case "2":
+                    prodi = "Teknik Meniup Gelembung";
+                    break;
+                case "3":
+                    prodi = "Teknik Berburu Ubur-Ubur";
+                    break;
+                case "4":
+                    prodi = "Sistem Perhamburgeran";
+                    break;
+                case "6":
+                    prodi = "Pendidikan Chum Bucket";
+                    break;
+                case "7":
+                    prodi = "Teknologi Telepon Kerang";
+                    break;
+            }
+            return prodi + ", " + angkatan;
+        }
+
+        public double getBeasiswa() {
+            if (IPK >= 3.0 && IPK < 3.5) {
+                return 50 + getTunjangan();
+            } else if (IPK >= 3.5 && IPK <= 4.0) {
+                return 75 + getTunjangan();
+            } else {
+                return getTunjangan();
+            }
+        }
+
+        public void totalMahasiswa() {
+            System.out.println(jumlah1);
+        }
+
+        public String toString() {
+            jumlah1++;
+            String pattern = "##.##";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+            return
+                    "\nNama\t\t : " + getNama() +
+                            "\nNIK\t\t\t : " + getNIK() +
+                            "\nJenis Kelamin: " + (getJenisKelamin() ? "Laki-laki" : "Perempuan") +
+                            "\nNIM\t\t\t : " + getNIM() +
+                            "\nIPK\t\t\t : " + getIPK() +
+                            "\nStatus\t\t : " + getStatus() +
+                            "\nPendapatan\t : " + getBeasiswa() + "$" + "\n";
+        }
+    }
+
+class Manusia {
+        private String nama;
+        private String NIK;
+        private boolean jenisKelamin;
+        private boolean menikah;
+        static int jumlah = 0;
+
+        public Manusia(String nama, String NIK, boolean jenisKelamin, boolean menikah) {
+            this.nama = nama;
+            this.NIK = NIK;
+            this.jenisKelamin = jenisKelamin;
+            this.menikah = menikah;
+        }
+
+        public String getNama() {
+            return nama;
+        }
+
+        public void setNama(String nama) {
+            this.nama = nama;
+        }
+
+        public String getNIK() {
+            return NIK;
+        }
+
+        public void setNIK(String NIK) {
+            this.NIK = NIK;
+        }
+
+        public boolean getJenisKelamin() {
+            return jenisKelamin;
+        }
+
+        public void setJenisKelamin(boolean jenisKelamin) {
+            this.jenisKelamin = jenisKelamin;
+        }
+
+        public boolean getMenikah() {
+            return menikah;
+        }
+
+        public void setMenikah(boolean menikah) {
+            this.menikah = menikah;
+        }
+
+        public double getTunjangan() {
+            if (getMenikah() == true && getJenisKelamin() == true) {
+                return 25;
+            } else if (getMenikah() == false && getMenikah() == true) {
+                return 20;
+            } else {
+                return 15;
+            }
+        }
+
+        public double getPendapatan() {
+            return getTunjangan();
+        }
+
+        public void getTotalManusia() {
+            System.out.println(jumlah);
+        }
+
+        public String toString() {
+            jumlah++;
+            String pattern = "##.##";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+            return
+                    "\nNama\t\t : " + getNama() +
+                            "\nNIK\t\t\t : " + getNIK() +
+                            "\nJenis Kelamin: " + (getJenisKelamin() ? "Laki-laki" : "Perempuan") +
+                            "\nPendapatan\t : " + getPendapatan() + "$" + "\n";
+        }
+    }
+
+class Pekerja extends Manusia {
+        private double gaji;
+        private double bonus;
+        private int jamKerja;
+        private int hariKerja;
+        private String NIP;
+        static int jumlah2 = 0;
+
+        public Pekerja(String nama, String NIK, boolean jenisKelamin, boolean menikah, int jamKerja, int hariKerja, String NIP) {
+            super(nama, NIK, jenisKelamin, menikah);
+            this.jamKerja = jamKerja;
+            this.hariKerja = hariKerja;
+            this.NIP = NIP;
+        }
+
+        public double getGaji() {
+            return gaji;
+        }
+
+        public void setGaji(double gaji) {
+            this.gaji = gaji;
+        }
+
+        public double getBonus() {
+            return bonus;
+        }
+
+        public void setBonus(double bonus) {
+            this.bonus = bonus;
+        }
+
+        public int getJamKerja() {
+            return jamKerja;
+        }
+
+        public void setJamKerja() {
+            this.jamKerja = jamKerja;
+        }
+
+        public int getHariKerja() {
+            return hariKerja;
+        }
+
+        public void setHariKerja(int hariKerja) {
+            this.hariKerja = hariKerja;
+        }
+
+        public String getNIP() {
+            return NIP;
+        }
+
+        public void setNIP(String NIP) {
+            this.NIP = NIP;
+        }
+
+        public double getGajii() {
+            return (getHariKerja() * getJamKerja() * 15);
+        }
+
+        public double getBonuss() {
+            double bonuslembur = ((getHariKerja() / 7) * 7 + (getHariKerja() % 7)) * (getJamKerja() - 7) * 5;
+            double bonuslibur = ((getHariKerja() / 7) * 2 + getHariKerja() * 20);
+            if (getJamKerja() <= 7)
+                return bonuslibur;
+            else
+                return bonuslembur + bonuslibur;
+        }
+
+        public String getStatus() {
+            String kantor = "";
+            String dep = "";
+            String cab;
+            switch (NIP.substring(0, 1)) {
+                case "1":
+                    kantor = "Mondstadt";
+                    break;
+                case "2":
+                    kantor = "Liyue";
+                    break;
+                case "3":
+                    kantor = "Inazuma";
+                    break;
+                case "4":
+                    kantor = "Sumeru";
+                    break;
+                case "5":
+                    kantor = "Fontaine";
+                    break;
+                case "6":
+                    kantor = "Natlan";
+                    break;
+                case "7":
+                    kantor = "Snezhnaya";
+                    break;
+            }
+            cab = " cabang ke- " + NIP.substring(2, 3);
+            switch (NIP.substring(6, 7)) {
+                case "1":
+                    dep = "Pemasaran";
+                    break;
+                case "2":
+                    dep = "Humas";
+                    break;
+                case "3":
+                    dep = "Riset";
+                    break;
+                case "4":
+                    dep = "Teknologi";
+                    break;
+                case "5":
+                    dep = "Personalia";
+                    break;
+                case "6":
+                    dep = "Akademik";
+                    break;
+                case "7":
+                    dep = "Administrasi";
+                    break;
+                case "8":
+                    dep = "Operasional";
+                    break;
+                case "9":
+                    dep = "Pembangunan";
+                    break;
+            }
+            return dep + ", " + kantor + cab;
+        }
+
+        public void totalPekerja() {
+            System.out.println(jumlah2);
+        }
+
+        public String toString() {
+            jumlah2++;
+            String pattern = "##.##";
+            DecimalFormat decimalFormat = new DecimalFormat(pattern);
+            return
+                    "\nNama\t\t : " + getNama() +
+                            "\nNIK\t\t\t : " + getNIK() +
+                            "\nJenis Kelamin: " + (getJenisKelamin() ? "Laki-laki" : "Perempuan") +
+                            "\nPendapatan\t : " + (getPendapatan() + getGajii() + getBonuss()) + "$" +
+                            "\nBonus\t\t : " + getBonuss() + "$" +
+                            "\nGaji\t\t : " + getGajii() + "$" +
+                            "\nStatus\t\t : " + getStatus() + "\n";
+        }
+    }
